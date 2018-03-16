@@ -19,7 +19,7 @@
     <script>
         function drawLargeImage($container, imageSrc) {
             // 请补充方法体
-            if (validateImage(imageSrc)) return alert('图片链接无效');
+  
             var canvas = $container.getElementsByTagName("canvas")[0];
             //检查支持性
             if (canvas.getContext) {
@@ -27,7 +27,7 @@
                 var img = new Image();
                 img.onload = function () {
                     //判断图片有效性
-                    if (ImgObj.fileSize < 0 || (ImgObj.width < 0 && ImgObj.height < 0)) {
+                    if (img.fileSize < 0 || (img.width < 0 && img.height < 0)) {
                         return alert("图片不支持");
                     }
                     canvas.width = img.width;
@@ -77,21 +77,7 @@
         //         img.src = imageSrc;
         //     }
         // }
-        //判断图片是否存在
-        function validateImage(url) {
-            var xmlHttp;
-            if (window.ActiveXObject) {
-                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-            } else if (window.XMLHttpRequest) {
-                xmlHttp = new XMLHttpRequest();
-            }
-            xmlHttp.open("Get", url, false);
-            xmlHttp.send();
-            if (xmlHttp.status == 404)
-                return false;
-            else
-                return true;
-        }
+
      
         drawLargeImage(document.getElementById('ad1'),
             'https://gw.alicdn.com/tfs/TB163pKdMmTBuNjy1XbXXaMrVXa-400-400.jpg');
@@ -102,5 +88,8 @@
 </body>
 
 </html>
+
+
+
 
 
