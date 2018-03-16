@@ -1,95 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>大尺寸广告图展示</title>
 </head>
-
 <body>
     <div id="ad1" style="width:400px;height:400px;overflow:hidden">
         <!-- 请自行添加canvas元素 -->
-        <canvas></canvas>
     </div>
     <div id="ad2" style="width:500px;height:700px;overflow:hidden">
-        <canvas></canvas>
-    </div>
-    <script>
-        function drawLargeImage($container, imageSrc) {
-            // 请补充方法体
-  
-            var canvas = $container.getElementsByTagName("canvas")[0];
-            //检查支持性
-            if (canvas.getContext) {
-                var ctx = canvas.getContext("2d");
-                var img = new Image();
-                img.onload = function () {
+</div>
+<script>
+    function drawLargeImage($container, imageSrc) {
+        // 请补充方法体
+        //检查支持性
+        var img = new Image();
+        img.onload = function () {
+            for (var i = 0; i <= Math.round(img.height/(40000 /img.width)); i++) {
+                var canvas = document.createElement("canvas");
+                if (canvas.getContext) {
+                    canvas.width = img.width;
+                    canvas.height = 40000 / img.width;
+                    var ctx = canvas.getContext("2d");
                     //判断图片有效性
                     if (img.fileSize < 0 || (img.width < 0 && img.height < 0)) {
                         return alert("图片不支持");
                     }
-                    canvas.width = img.width;
-                    canvas.height = 40000 / img.width;
-                    var i = 0;
-                    setInterval(() => {
-                        if (i == img.height) {
-                            i = 0
-                        };
-                        ctx.drawImage(img, 0, i, img.width, 40000 / img.width, 0, 0, img.width, 40000 / img.width);
-                        i++;
-                    }, 30);
-                };
-                img.src = imageSrc;
-            } else {
-                alert("设备不支持");
+                    //画图
+                    ctx.drawImage(img, 0, canvas.height * i, img.width, 40000 / img.width, 0, 0, img.width, 40000 /
+                        img.width);
+                        console.log(i);
+                    
+                } else {
+                    alert("设备不支持");
+                }
+                //清理白边
+                canvas.style.display="block";
+                $container.appendChild(canvas);
             }
-        }   
-        //这个原图压缩了，想不到第三种了，求答案链接
-                // function drawLargeImage1($container, imageSrc) {
-        //     // 请补充方法体
-        //     var canvas = $container.getElementsByTagName("canvas")[0];
-        //     if (canvas.getContext) {
-        //         var context = canvas.getContext('2d');
-        //         var img = new Image();
-        //         img.onload = function () {
-        //             var w = this.width,
-        //                 h = this.height;
-        //             var width = w,
-        //                 height = h;
-        //             var size = 200;
-        //             //生成一个画布，对画布的大小根据图片的大小计算
-        //             if (w >= h && w > size) { //宽 > 高  
-        //                 width = size;
-        //                 height = size / w * h;
-        //             } else if (w < h && h > size) {
-        //                 height = size;
-        //                 width = size / h * w;
-        //             }
-        //             //计算的画布的大小
-        //             canvas.width = width;
-        //             canvas.height = height;
-        //             context.clearRect(0, 0, width, height);
-        //             // img重新画到特定大小的画布上
-        //             context.drawImage(img, 0, 0, width, height);
-        //         }
-        //         img.src = imageSrc;
-        //     }
-        // }
-
-     
+        };
+        img.src = imageSrc;
+    }
         drawLargeImage(document.getElementById('ad1'),
             'https://gw.alicdn.com/tfs/TB163pKdMmTBuNjy1XbXXaMrVXa-400-400.jpg');
         drawLargeImage(document.getElementById('ad2'),
             'https://gw.alicdn.com/tfs/TB1EaOddKuSBuNjy1XcXXcYjFXa-500-700.jpg');
-
     </script>
 </body>
 
 </html>
-
-
-
-
-
